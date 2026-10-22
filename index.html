@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alpha Conceito Barbearia</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Michroma&family=Outfit:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: vídeo fixo ao fundo; painéis noturnos com tipografia clássica dourada (eco da coluna do logo), cardápio de serviços com linhas pontilhadas e agenda que gera a mensagem do WhatsApp */
+:root {
+  --bg: #05061a;
+  --bg-2: #0b0d26;
+  --gold: #d4b06a;
+  --gold-hi: #f1d99c;
+  --gold-deep: #9a7637;
+  --text: #dfc995;
+  --mute: #9d8a63;
+  --line: rgba(212,176,106,.22);
+  --line-strong: rgba(212,176,106,.5);
+  --danger: #e8a07a;
+  --gold-grad: linear-gradient(100deg, #a07b3b 0%, #f1d99c 32%, #c99f55 55%, #f4e2b0 78%, #b48a45 100%);
+  --font-display: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+  --font-body: "Outfit", "Helvetica Neue", Arial, sans-serif;
+  --font-mark: "Michroma", "Eurostile", "Arial Black", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-body); font-weight: 300; font-size: 17px; line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+.wrap { max-width: 1160px; margin: 0 auto; }
+.full { margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); padding-inline: max(16px, env(safe-area-inset-left, 0px)); }
+
+/* fundo */
+.bg { position: fixed; inset: 0; z-index: -2; background: var(--bg) url("poster.jpg") center/cover; }
+.bg video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.shade { position: fixed; inset: 0; z-index: -1; background:
+  radial-gradient(120% 80% at 20% 40%, rgba(5,6,26,.35), rgba(5,6,26,.85) 70%),
+  linear-gradient(180deg, rgba(5,6,26,.75), rgba(5,6,26,.35) 35%, rgba(5,6,26,.9)); }
+
+/* type */
+.g { background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.eyebrow { font-family: var(--font-mark); font-size: 10.5px; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin: 0 0 20px; display: flex; align-items: center; gap: 14px; }
+.eyebrow::before { content: ""; width: 34px; height: 1px; background: var(--gold); flex: none; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 500; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1.12; letter-spacing: .01em; }
+.sub { color: var(--mute); margin: 16px 0 0; max-width: 52ch; }
+
+/* header */
+header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(5,6,26,.78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.hbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+.brand svg { width: 30px; height: 40px; flex: none; }
+.brand b { display: block; font-family: var(--font-mark); font-weight: 400; font-size: 14px; letter-spacing: .05em; }
+.brand small { display: block; font-family: var(--font-mark); font-size: 6.5px; letter-spacing: .24em; color: var(--mute); margin-top: 3px; }
+header nav { display: flex; align-items: center; gap: 28px; font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; }
+header nav a { text-decoration: none; color: var(--text); }
+header nav a:hover { color: var(--gold-hi); }
+header nav .book { border: 1px solid var(--gold); padding: 9px 18px; color: var(--gold-hi); }
+header nav .book:hover { background: var(--gold); color: var(--bg); }
+
+/* hero */
+.hero { padding-block: clamp(80px, 14vh, 150px) clamp(90px, 14vh, 150px); }
+.hero h1 { font-size: clamp(2.3rem, 6.2vw, 4.9rem); line-height: 1.06; max-width: 16ch; letter-spacing: .005em; }
+.hero .lead { font-family: var(--font-display); font-size: clamp(1.05rem, 2vw, 1.35rem); color: var(--gold); letter-spacing: .14em; text-transform: uppercase; margin: 30px 0 0; }
+.cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 42px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 28px; text-decoration: none; font-family: var(--font-body); font-weight: 500; font-size: 13.5px; letter-spacing: .16em; text-transform: uppercase; border: 1px solid var(--gold); cursor: pointer; transition: background .25s, color .25s, filter .25s; }
+.btn svg { width: 19px; height: 19px; fill: currentColor; flex: none; }
+.btn.solid { background: var(--gold-grad); color: var(--bg); border-color: transparent; }
+.btn.solid:hover { filter: brightness(1.08); }
+.btn.line { color: var(--gold-hi); background: rgba(5,6,26,.4); }
+.btn.line:hover { background: var(--gold); color: var(--bg); }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 10px 34px; margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line); max-width: 640px; font-size: 14px; color: var(--mute); }
+.hero-meta b { color: var(--gold); font-weight: 500; font-variant-numeric: tabular-nums; }
+
+/* panels */
+.panel { background: linear-gradient(180deg, rgba(5,6,26,.88), rgba(8,9,32,.95)); border-top: 1px solid var(--line); }
+section { padding-block: clamp(64px, 9vw, 110px); }
+.head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 32px 64px; align-items: end; margin-bottom: 56px; }
+.head .sub { margin: 0; }
+
+/* cardápio */
+.menu { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 72px; }
+.item { padding-block: 26px; border-bottom: 1px solid var(--line); min-width: 0; }
+.item .top { display: flex; align-items: baseline; gap: 14px; }
+.item h3 { font-size: 1.22rem; color: var(--gold-hi); letter-spacing: .03em; flex: none; max-width: 70%; }
+.item .dots { flex: 1; border-bottom: 1px dotted var(--line-strong); transform: translateY(-5px); min-width: 20px; }
+.item .price { font-family: var(--font-display); font-size: 1.3rem; color: var(--gold-hi); font-variant-numeric: tabular-nums; flex: none; }
+.item .price small { font-size: .62em; color: var(--gold); margin-right: 3px; }
+.item p { margin: 8px 0 0; color: var(--mute); font-size: 15px; }
+.item .meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.item .dur { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-deep); }
+.pick { background: none; border: 0; padding: 0; color: var(--gold); font: 500 12px var(--font-body); letter-spacing: .16em; text-transform: uppercase; cursor: pointer; border-bottom: 1px solid transparent; }
+.pick:hover { border-bottom-color: var(--gold); }
+.signature { margin-top: 48px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: center; padding: 34px 38px; border: 1px solid var(--line-strong); background: linear-gradient(120deg, rgba(212,176,106,.10), rgba(212,176,106,.02) 60%); position: relative; }
+.signature::before, .signature::after { content: ""; position: absolute; width: 14px; height: 14px; border: 1px solid var(--gold); }
+.signature::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+.signature::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+.signature h3 { font-size: clamp(1.35rem, 2.6vw, 1.8rem); }
+.signature p { margin: 8px 0 0; color: var(--text); max-width: 60ch; }
+.signature .price { font-family: var(--font-display); font-size: clamp(1.8rem, 3.6vw, 2.5rem); text-align: right; line-height: 1.1; }
+.signature .price small { display: block; font-family: var(--font-body); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; }
+
+/* galeria */
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, clamp(220px, 26vw, 330px)); grid-template-areas: "a b c" "a d e"; gap: 12px; }
+.gallery figure { margin: 0; position: relative; overflow: hidden; min-width: 0; background: var(--bg-2); }
+.gallery figure:nth-child(1) { grid-area: a; }
+.gallery figure:nth-child(2) { grid-area: b; }
+.gallery figure:nth-child(3) { grid-area: c; }
+.gallery figure:nth-child(4) { grid-area: d; }
+.gallery figure:nth-child(5) { grid-area: e; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s ease; filter: saturate(.92); }
+.gallery figure:hover img { transform: scale(1.04); }
+.gallery figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 18px 14px; background: linear-gradient(transparent, rgba(5,6,26,.9)); font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-hi); }
+.quote { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2.1rem); line-height: 1.3; margin: 56px 0 0; max-width: 26ch; }
+
+/* agenda */
+.book-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 40px; align-items: start; }
+form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.field { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.field.wide { grid-column: 1 / -1; }
+label { font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+input, select, textarea { width: 100%; background: rgba(5,6,26,.6); color: var(--gold-hi); border: 1px solid var(--line-strong); border-radius: 0; padding: 14px 14px; font: 400 16px var(--font-body); appearance: none; -webkit-appearance: none; min-height: 52px; }
+select { background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 15px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 40px; }
+select option { background: var(--bg-2); color: var(--gold-hi); }
+input::placeholder, textarea::placeholder { color: var(--mute); opacity: .7; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold-hi); box-shadow: 0 0 0 1px var(--gold-hi); }
+input::-webkit-calendar-picker-indicator { filter: invert(78%) sepia(40%) saturate(500%) hue-rotate(5deg); cursor: pointer; }
+textarea { resize: vertical; min-height: 84px; }
+.hint { font-size: 13px; color: var(--mute); min-height: 1.2em; margin: 0; }
+.hint.err { color: var(--danger); }
+.ticket { border: 1px solid var(--line-strong); background: linear-gradient(160deg, rgba(212,176,106,.10), rgba(5,6,26,.7) 55%); padding: 30px 28px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 92px); }
+.ticket h3 { font-size: 1.3rem; color: var(--gold-hi); }
+.ticket dl { margin: 22px 0 0; display: grid; gap: 0; }
+.ticket dl div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+.ticket dt { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
+.ticket dd { margin: 0; text-align: right; color: var(--gold-hi); font-variant-numeric: tabular-nums; min-width: 0; overflow-wrap: anywhere; }
+.ticket .total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 18px; }
+.ticket .total span { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
+.ticket .total b { font-family: var(--font-display); font-weight: 500; font-size: 2rem; }
+.ticket .btn { width: 100%; margin-top: 24px; }
+.ticket .btn[aria-disabled="true"] { filter: grayscale(.6) brightness(.7); }
+.ticket .fine { font-size: 12.5px; color: var(--mute); margin: 14px 0 0; }
+
+/* horários + contato */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: start; }
+.hours { margin: 0; }
+.hours div { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.hours dt { font-family: var(--font-display); font-size: 1.15rem; color: var(--gold-hi); }
+.hours dd { margin: 0; font-size: 1.1rem; color: var(--gold); font-variant-numeric: tabular-nums; }
+.contact { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+.contact a { display: flex; align-items: center; gap: 18px; padding: 18px 22px; border: 1px solid var(--line); text-decoration: none; background: rgba(5,6,26,.4); transition: border-color .2s, background .2s; min-width: 0; }
+.contact a:hover { border-color: var(--gold); background: rgba(212,176,106,.07); }
+.contact svg { width: 26px; height: 26px; fill: var(--gold); flex: none; }
+.contact small { display: block; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
+.contact b { font-weight: 400; font-size: 1.1rem; color: var(--gold-hi); overflow-wrap: anywhere; }
+
+footer { padding-block: 40px calc(48px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; color: var(--mute); font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; }
+
+/* whatsapp flutuante */
+.float { position: fixed; z-index: 30; right: calc(18px + env(safe-area-inset-right, 0px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px)); width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: var(--gold-grad); color: var(--bg); box-shadow: 0 10px 30px rgba(0,0,0,.45); text-decoration: none; }
+.float svg { width: 28px; height: 28px; fill: currentColor; }
+
+@media (max-width: 900px) {
+  header nav a:not(.book) { display: none; }
+  .head, .two, .book-grid { grid-template-columns: 1fr; }
+  .menu { grid-template-columns: 1fr; }
+  .ticket { position: static; }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: clamp(300px, 80vw, 460px) repeat(2, clamp(180px, 45vw, 280px)); grid-template-areas: "a a" "b c" "d e"; gap: 8px; }
+}
+@media (max-width: 560px) {
+  form { grid-template-columns: 1fr; }
+  .btn { width: 100%; }
+  .signature { grid-template-columns: 1fr; padding: 28px 22px; }
+  .signature .price { text-align: left; }
+  .item h3 { font-size: 1.08rem; }
+  header nav .book { padding: 8px 12px; font-size: 11px; }
+  .brand small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .gallery img, .btn, .contact a { transition: none; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a07b3b"/><stop offset=".4" stop-color="#f1d99c"/><stop offset=".7" stop-color="#c99f55"/><stop offset="1" stop-color="#f4e2b0"/></linearGradient>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.95L2 22l5.2-1.5A9.95 9.95 0 1 0 12.04 2Zm5.8 14.1c-.25.7-1.4 1.3-1.95 1.35-.5.05-1.1.07-1.8-.12-.4-.13-.95-.3-1.6-.6-2.8-1.2-4.6-4-4.75-4.2-.14-.2-1.150-1.5-1.150-2.9s.72-2.050 1-2.350c.25-.3.55-.37.75-.37h.55c.18 0 .4-.05.62.48.25.6.85 2.1.92 2.25.07.15.12.32.02.5-.1.2-.15.32-.3.5-.15.17-.32.38-.45.5-.15.15-.3.3-.13.6.17.3.78 1.28 1.68 2.07 1.15 1 2.12 1.33 2.42 1.48.3.15.48.12.65-.07.18-.2.75-.87.95-1.17.2-.3.4-.25.68-.15.27.1 1.75.83 2.05.98.3.15.5.22.57.35.08.12.08.72-.17 1.4Z"/></symbol>
+    <symbol id="i-ig" viewBox="0 0 24 24"><path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.25-3.2a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></symbol>
+    <symbol id="i-col" viewBox="0 0 34 44"><g fill="url(#gg)"><rect x="0" y="0" width="34" height="4"/><rect x="3" y="4" width="28" height="2.5"/><rect x="6" y="9" width="4.5" height="30"/><rect x="14.75" y="9" width="4.5" height="35"/><rect x="23.5" y="9" width="4.5" height="30"/></g></symbol>
+  </defs>
+</svg>
+
+<div class="bg" aria-hidden="true">
+  <video id="bgv" autoplay muted loop playsinline preload="auto" poster="poster.jpg" disablepictureinpicture>
+    <source src="fundo.mp4" type="video/mp4">
+  </video>
+</div>
+<div class="shade" aria-hidden="true"></div>
+
+<header class="full">
+  <div class="wrap hbar">
+    <a class="brand" href="#topo" aria-label="Alpha Conceito, início">
+      <svg aria-hidden="true"><use href="#i-col"/></svg>
+      <span><b class="g">ALPHA CONCEITO</b><small>BARBEARIA E VISAGISMO</small></span>
+    </a>
+    <nav aria-label="Seções">
+      <a href="#servicos">Serviços</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#horarios">Horários</a>
+      <a class="book" href="#agenda">Agendar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+  <div class="wrap">
+    <div class="hero">
+      <p class="eyebrow">Barbearia e Visagismo</p>
+      <h1 class="g">Seu sucesso começa pela imagem que você projeta</h1>
+      <p class="lead">Eleve seu padrão Alpha Conceito</p>
+      <div class="cta">
+        <a class="btn solid" href="#agenda">Agendar horário</a>
+        <a class="btn line" href="#servicos">Ver serviços e valores</a>
+      </div>
+      <div class="hero-meta">
+        <span>Seg a Sex <b>09h às 22h</b></span>
+        <span>Sábado <b>09h às 19h</b></span>
+        <span>WhatsApp <b>(11) 98732-8341</b></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVIÇOS -->
+  <div class="panel full" id="servicos">
+    <div class="wrap">
+      <section>
+        <div class="head">
+          <div>
+            <p class="eyebrow">Serviços e valores</p>
+            <h2 class="g">Excelência está nos detalhes</h2>
+          </div>
+          <p class="sub">Cada detalhe é pensado para transformar o cuidado em presença e o processo em confiança.</p>
+        </div>
+
+        <div class="menu" id="menu"></div>
+
+        <div class="signature">
+          <div>
+            <p class="eyebrow" style="margin-bottom:12px">Assinatura da casa</p>
+            <h3 class="g">Experiência Alpha Completa</h3>
+            <p>Consultoria de visagismo, corte, barba com toalha quente, lavagem com hidratação e finalização. Duas horas dedicadas só a você.</p>
+            <div class="meta" style="display:flex;gap:24px;margin-top:16px;flex-wrap:wrap;align-items:center">
+              <span class="dur" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep)">120 min</span>
+              <button class="pick" type="button" data-pick="Experiência Alpha Completa">Agendar esta experiência →</button>
+            </div>
+          </div>
+          <div class="price"><small>A partir de</small><span class="g">R$ 290</span></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- GALERIA -->
+  <div class="panel full" id="galeria">
+    <div class="wrap">
+      <section>
+        <div class="head">
+          <div>
+            <p class="eyebrow">Por dentro da Alpha</p>
+            <h2 class="g">O ritual do cuidado</h2>
+          </div>
+          <p class="sub">Um ambiente reservado, profissionais especializados e equipamentos de primeira linha.</p>
+        </div>
+        <div class="gallery">
+          <figure><img src="foto5.jpg" alt="Barbeiro de terno avaliando o corte de um cliente" loading="lazy"><figcaption>Visagismo</figcaption></figure>
+          <figure><img src="foto1.jpg" alt="Barbeiro aplicando espuma na barba de cliente reclinado com toalha" loading="lazy"><figcaption>Barba Premium</figcaption></figure>
+          <figure><img src="foto3.jpg" alt="Cliente recebendo lavagem de cabelo no lavatório" loading="lazy"><figcaption>Lavagem e hidratação</figcaption></figure>
+          <figure><img src="foto2.jpg" alt="Finalização do corte com pincel na nuca do cliente" loading="lazy"><figcaption>Acabamento</figcaption></figure>
+          <figure><img src="foto4.jpg" alt="Máquinas de corte profissionais sobre a bancada" loading="lazy"><figcaption>Equipamentos profissionais</figcaption></figure>
+        </div>
+        <p class="quote g">Sua presença impõe. Sua imagem acompanha.</p>
+      </section>
+    </div>
+  </div>
+
+  <!-- AGENDA -->
+  <div class="panel full" id="agenda">
+    <div class="wrap">
+      <section>
+        <div class="head">
+          <div>
+            <p class="eyebrow">Agendamento</p>
+            <h2 class="g">Reserve o seu horário</h2>
+          </div>
+          <p class="sub">Escolha o serviço, o dia e o horário. A mensagem já vai pronta para o nosso WhatsApp, e a equipe confirma o seu horário por lá.</p>
+        </div>
+
+        <div class="book-grid">
+          <form id="bookForm" novalidate>
+            <div class="field wide">
+              <label for="fNome">Seu nome</label>
+              <input id="fNome" name="nome" type="text" autocomplete="name" placeholder="Como podemos te chamar?">
+            </div>
+            <div class="field wide">
+              <label for="fServico">Serviço</label>
+              <select id="fServico" name="servico"></select>
+            </div>
+            <div class="field">
+              <label for="fData">Dia</label>
+              <input id="fData" name="data" type="date">
+            </div>
+            <div class="field">
+              <label for="fHora">Horário</label>
+              <select id="fHora" name="hora" disabled><option value="">Escolha o dia primeiro</option></select>
+            </div>
+            <div class="field wide">
+              <label for="fObs">Observação (opcional)</label>
+              <textarea id="fObs" name="obs" placeholder="Preferência de profissional, referência de corte..."></textarea>
+            </div>
+            <p class="hint field wide" id="hint" aria-live="polite"></p>
+          </form>
+
+          <aside class="ticket" aria-label="Resumo do agendamento">
+            <h3>Resumo</h3>
+            <dl>
+              <div><dt>Nome</dt><dd id="tNome">—</dd></div>
+              <div><dt>Serviço</dt><dd id="tServico">—</dd></div>
+              <div><dt>Dia</dt><dd id="tData">—</dd></div>
+              <div><dt>Horário</dt><dd id="tHora">—</dd></div>
+            </dl>
+            <div class="total"><span>Valor</span><b class="g" id="tPreco">R$ —</b></div>
+            <a class="btn solid" id="waBtn" href="https://wa.me/5511987328341" target="_blank" rel="noopener" aria-disabled="true">
+              <svg aria-hidden="true"><use href="#i-wa"/></svg> Enviar pelo WhatsApp
+            </a>
+            <p class="fine">O WhatsApp abre com a mensagem pronta para (11) 98732-8341. O horário fica reservado depois que a equipe confirmar.</p>
+          </aside>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- HORÁRIOS E CONTATO -->
+  <div class="panel full" id="horarios">
+    <div class="wrap">
+      <section>
+        <div class="two">
+          <div>
+            <p class="eyebrow">Horário de atendimento</p>
+            <h2 class="g">Mais tempo para cuidar de você</h2>
+            <dl class="hours" style="margin-top:28px">
+              <div><dt>Segunda a sexta</dt><dd>09:00 às 22:00</dd></div>
+              <div><dt>Sábado</dt><dd>09:00 às 19:00</dd></div>
+              <div><dt>Domingo</dt><dd>Fechado</dd></div>
+            </dl>
+          </div>
+          <div>
+            <p class="eyebrow">Contato</p>
+            <h2 class="g">Eleve seu padrão</h2>
+            <div class="contact">
+              <a href="https://wa.me/5511987328341" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-wa"/></svg>
+                <span><small>WhatsApp</small><b>(11) 98732-8341</b></span>
+              </a>
+              <a href="https://www.instagram.com/alphaconceitobarbearia?vrfl=Y25qeGJ2YnN3ZmNw" target="_blank" rel="noopener">
+                <svg aria-hidden="true"><use href="#i-ig"/></svg>
+                <span><small>Instagram</small><b>@alphaconceitobarbearia</b></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer>
+        <span class="g">Alpha Conceito · Barbearia e Visagismo</span>
+        <span>Seu sucesso começa pela imagem que você projeta</span>
+      </footer>
+    </div>
+  </div>
+</main>
+
+<a class="float" href="https://wa.me/5511987328341" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg aria-hidden="true"><use href="#i-wa"/></svg>
+</a>
+
+<script>
+(function () {
+  /* vídeo */
+  var v = document.getElementById("bgv");
+  if (v) {
+    v.muted = true;
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) { v.pause(); }
+    else {
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+      document.addEventListener("visibilitychange", function () { if (!document.hidden) { var q = v.play(); if (q && q.catch) q.catch(function () {}); } });
+    }
+  }
+
+  /* serviços (valores ilustrativos) */
+  var SERVICES = [
+    { n: "Corte Visagista", d: "Corte desenhado a partir do formato do seu rosto, com consultoria de estilo.", m: 45, p: 120 },
+    { n: "Barba Premium", d: "Modelagem com navalha, toalha quente e óleos para barba.", m: 40, p: 90 },
+    { n: "Combo Alpha", d: "Corte Visagista e Barba Premium na mesma sessão.", m: 80, p: 190 },
+    { n: "Lavagem e Hidratação", d: "Lavagem relaxante com hidratação profunda e massagem capilar.", m: 30, p: 70 },
+    { n: "Pigmentação de Barba", d: "Preenche falhas e realça o desenho com acabamento natural.", m: 30, p: 80 },
+    { n: "Sobrancelha", d: "Limpeza e alinhamento discreto, na navalha ou na pinça.", m: 15, p: 35 }
+  ];
+  var ALL = SERVICES.concat([{ n: "Experiência Alpha Completa", d: "", m: 120, p: 290 }]);
+  var brl = function (n) { return "R$ " + n.toLocaleString("pt-BR"); };
+
+  var menu = document.getElementById("menu");
+  menu.innerHTML = SERVICES.map(function (s) {
+    return '<article class="item"><div class="top"><h3>' + s.n + '</h3><span class="dots"></span><span class="price"><small>R$</small>' + s.p + '</span></div>' +
+      '<p>' + s.d + '</p><div class="meta"><span class="dur">' + s.m + ' min</span><button class="pick" type="button" data-pick="' + s.n + '">Agendar →</button></div></article>';
+  }).join("");
+
+  /* agenda */
+  var f = { nome: byId("fNome"), serv: byId("fServico"), data: byId("fData"), hora: byId("fHora"), obs: byId("fObs") };
+  var t = { nome: byId("tNome"), serv: byId("tServico"), data: byId("tData"), hora: byId("tHora"), preco: byId("tPreco") };
+  var hint = byId("hint"), btn = byId("waBtn");
+  function byId(id) { return document.getElementById(id); }
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()); }
+
+  f.serv.innerHTML = '<option value="">Selecione o serviço</option>' + ALL.map(function (s, i) {
+    return '<option value="' + i + '">' + s.n + " · " + brl(s.p) + "</option>";
+  }).join("");
+
+  var today = new Date();
+  f.data.min = iso(today);
+  var max = new Date(today); max.setDate(max.getDate() + 60); f.data.max = iso(max);
+
+  function parseDate(val) { if (!val) return null; var a = val.split("-"); return new Date(+a[0], +a[1] - 1, +a[2], 12); }
+
+  function fillTimes() {
+    var d = parseDate(f.data.value), prev = f.hora.value;
+    if (!d) { f.hora.innerHTML = '<option value="">Escolha o dia primeiro</option>'; f.hora.disabled = true; return ""; }
+    var dow = d.getDay();
+    if (dow === 0) { f.hora.innerHTML = '<option value="">Fechado aos domingos</option>'; f.hora.disabled = true; return "Não abrimos aos domingos. Escolha outro dia."; }
+    var last = dow === 6 ? 18.5 : 21.5, opts = [], now = new Date();
+    var isToday = iso(d) === iso(now), cut = now.getHours() + now.getMinutes() / 60 + 0.5;
+    for (var h = 9; h <= last; h += 0.5) {
+      if (isToday && h < cut) continue;
+      var lbl = pad(Math.floor(h)) + ":" + (h % 1 ? "30" : "00");
+      opts.push('<option value="' + lbl + '"' + (lbl === prev ? " selected" : "") + ">" + lbl + "</option>");
+    }
+    if (!opts.length) { f.hora.innerHTML = '<option value="">Sem horários hoje</option>'; f.hora.disabled = true; return "Os horários de hoje já encerraram. Escolha outro dia."; }
+    f.hora.innerHTML = '<option value="">Selecione</option>' + opts.join("");
+    f.hora.disabled = false;
+    return "";
+  }
+
+  var dayErr = "";
+  function update(showErr) {
+    var s = ALL[f.serv.value], d = parseDate(f.data.value);
+    var nome = f.nome.value.trim(), hora = f.hora.value;
+    var dataTxt = d ? d.toLocaleDateString("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit" }) : "";
+    t.nome.textContent = nome || "—";
+    t.serv.textContent = s ? s.n : "—";
+    t.data.textContent = dataTxt || "—";
+    t.hora.textContent = hora || "—";
+    t.preco.textContent = s ? brl(s.p) : "R$ —";
+
+    var missing = [];
+    if (!nome) missing.push("seu nome");
+    if (!s) missing.push("o serviço");
+    if (!d || dayErr) missing.push("o dia");
+    if (!hora) missing.push("o horário");
+    var ok = !missing.length;
+
+    if (ok) {
+      var msg = "*Olá! Gostaria de agendar na Alpha Conceito.*\n\n" +
+        "*Nome:* " + nome + "\n*Serviço:* " + s.n + " (" + brl(s.p) + ")\n*Dia:* " + dataTxt + "\n*Horário:* " + hora +
+        (f.obs.value.trim() ? "\n*Observação:* " + f.obs.value.trim() : "") + "\n\nAguardo a confirmação. Obrigado!";
+      btn.href = "https://wa.me/5511987328341?text=" + encodeURIComponent(msg);
+      btn.setAttribute("aria-disabled", "false");
+      hint.textContent = "Tudo pronto. Toque em Enviar pelo WhatsApp.";
+      hint.className = "hint field wide";
+    } else {
+      btn.href = "https://wa.me/5511987328341";
+      btn.setAttribute("aria-disabled", "true");
+      hint.textContent = dayErr || (showErr ? "Falta preencher " + missing.join(", ") + "." : "");
+      hint.className = "hint field wide" + (dayErr || showErr ? " err" : "");
+    }
+    return ok;
+  }
+
+  f.data.addEventListener("change", function () { dayErr = fillTimes(); update(false); });
+  [f.nome, f.serv, f.hora, f.obs].forEach(function (el) { el.addEventListener("input", function () { update(false); }); el.addEventListener("change", function () { update(false); }); });
+  btn.addEventListener("click", function (e) { if (!update(true)) { e.preventDefault(); } });
+  byId("bookForm").addEventListener("submit", function (e) { e.preventDefault(); });
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("[data-pick]");
+    if (!b) return;
+    var name = b.getAttribute("data-pick");
+    for (var i = 0; i < ALL.length; i++) if (ALL[i].n === name) f.serv.value = String(i);
+    update(false);
+    byId("agenda").scrollIntoView({ behavior: "smooth" });
+    setTimeout(function () { (f.nome.value ? f.data : f.nome).focus({ preventScroll: true }); }, 500);
+  });
+
+  update(false);
+})();
+</script>
+</body>
+</html>
